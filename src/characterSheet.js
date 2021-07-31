@@ -5,6 +5,14 @@ import Grid from '@material-ui/core/Grid';
 import { theme } from './theme.js'
 import logo from './logo.svg'
 import { magic } from './lore.js'
+import { Attributes } from './characterSheetModules/attributes.js'
+import { Abilities } from './characterSheetModules/abilities.js'
+import { Backstory } from './characterSheetModules/backstory.js'
+import { Equipment } from './characterSheetModules/equipment.js'
+import { Paths } from './characterSheetModules/paths.js'
+import { Portrait } from './characterSheetModules/portrait.js'
+import { Skills } from './characterSheetModules/skills.js'
+import { Stats } from './characterSheetModules/stats.js'
 import { CardMedia, Card, CardContent, Typography, Container, TextField, Alert, AlertTitle } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -31,48 +39,11 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Stats = (props) =>{
-  const classes = useStyles();
-  const character = props.character;
-  const StatCard = (props) =>{
-    const [modifier, setModifier] = useState(character.getStat(props.stat));
-    return(
-    <Card className={classes.card} variant="outlined">
-      <CardContent style={{padding:"5px"}}>
-        <Typography className={classes.text} style={{fontSize:"12px"}}>
-          {props.name}
-        </Typography>
-        <Typography id="modifier"  className={classes.text} style={{fontSize:"20px"}}>
-          {modifier}
-        </Typography>
-        <TextField className={classes.text}
-        inputProps={{style:{fontSize: 12, color: "#000000",textAlign: "center"}}}
-        fullWidth
-        defaultValue={10 + character.getStat(props.stat)}
-        type="tel"
-        onChange={(e) =>{character.updateStat(props.stat, e.target.value - 10); setModifier(character.getStat(props.stat))}}/>
-      </CardContent>
-    </Card>
-  )
-  }
-
-  return(
-    <Container>
-    <StatCard stat="str" name="Strength" />
-    <StatCard stat="dex" name="Dexterity" />
-    <StatCard stat="con" name="Constituton" />
-    <StatCard stat="int" name="Intelligence" />
-    <StatCard stat="cha" name="Charisma" />
-    <StatCard stat="wil" name="Willpower" />
-    </Container>
-  )
-}
-
 const CharacterSheet = (props) => {
   const classes = useStyles();
   const character = props.character;
   const database = props.database;
-database.collection("Characters").doc("Lu").get().then( (doc) => {
+  database.collection("Characters").doc("Lu").get().then( (doc) => {
     if (doc.exists) {
         console.log( doc.data());
     } else {
@@ -87,8 +58,37 @@ database.collection("Characters").doc("Lu").get().then( (doc) => {
 
     <div className={classes.root} >
       <Grid container spacing={3}>
-        <Grid item xs={1}>
-            <Stats character={character} />
+        <Grid item xs={1} className={classes.block}>
+          <Attributes character ={props.character}/>
+        </Grid>
+        <Grid item xs={3} className={classes.block}>
+            <Grid container direction={'column'} spacing={3}>
+              <Grid item xs={12} className={classes.block}>
+                <Portrait character ={props.character}/>
+              </Grid>
+              <Grid item xs={12} className={classes.block}>
+                <Equipment character ={props.character}/>
+              </Grid>
+            </Grid>
+        </Grid>
+        <Grid item xs={2} className={classes.block}>
+          <Skills character ={props.character}/>
+        </Grid>
+        <Grid item xs={6} className={classes.block}>
+            <Grid container direction={'column'} spacing={3}>
+              <Grid item xs={12} className={classes.block}>
+                <Stats character ={props.character}/>
+              </Grid>
+              <Grid item xs={12} className={classes.block}>
+                <Abilities character ={props.character}/>
+              </Grid>
+            </Grid>
+        </Grid>
+        <Grid item xs={12} className={classes.block}>
+          <Paths character ={props.character}/>
+        </Grid>
+        <Grid item xs={12} className={classes.block}>
+          <Backstory character ={props.character}/>
         </Grid>
       </Grid>
     </div>

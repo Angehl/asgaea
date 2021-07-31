@@ -24,7 +24,7 @@ const baseMagic = {
   },
 }
 
-const baseStats ={
+const baseAttributes ={
   "str" : -2,
   "dex" : -2,
   "con" : -2,
@@ -48,19 +48,19 @@ class Character extends React.Component{
     super(props);
     this.abilities = [];
     this.magic = baseMagic;
-    this.stats = baseStats;
+    this.attributes = baseAttributes;
     this.skills = baseSkills;
   }
 
-  getStat(stat){
-    return this.stats[stat]
+  getAttribute(attribute){
+    return this.attributes[attribute]
   }
 
-  updateStat(stat,value){
+  updateAttribute(attribute,value){
     if (value > 10 || value < -10)
-      return this.stats[stat];
-    this.stats[stat] = value;
-    return this.stats[stat];
+      return this.attributes[attribute];
+    this.attributes[attribute] = value;
+    return this.attributes[attribute];
   }
 }
 

@@ -1,7 +1,7 @@
-import { createMuiTheme, ThemeProvider } from '@material-ui/core'
+import { createTheme, ThemeProvider } from '@material-ui/core'
 import { purple } from '@material-ui/core/colors'
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette:{
     background: {
       default: "#222222",

@@ -2,15 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { CharacterSheet } from './characterSheet.js'
 import { theme } from './theme.js'
 import Character from './character.js'
 import firebase from 'firebase'
 
-const firebaseConfig = {
+var firebaseConfig = {
     apiKey: "AIzaSyAlahK8sr589_KxfkGWe19MhGCAGa3J8Us",
     authDomain: "asgea-roleplay.firebaseapp.com",
+    databaseURL: "https://asgea-roleplay-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "asgea-roleplay",
     storageBucket: "asgea-roleplay.appspot.com",
     messagingSenderId: "182968559562",
